@@ -258,19 +258,10 @@
       font-size: 1.05rem;
       position: relative;
       color: var(--text-primary);
-      opacity: 0;
-      transform: translateX(-8px) translateY(1px);
-      transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
       white-space: nowrap;
       line-height: 1.2;
       display: flex;
       align-items: center;
-    }
-
-    /* Logo animation on page load */
-    .logo.loaded .logo-text {
-      opacity: 1;
-      transform: translateX(0) translateY(1px);
     }
 
     .logo:hover .logo-text {
@@ -341,13 +332,15 @@
       }
     }
 
-    /* Smooth logo text reveal with delay */
-    .logo:not(.loaded) .logo-text {
-      transition-delay: 0s;
+    .btn-ghost {
+      background: transparent;
+      color: var(--text-secondary);
+      padding: var(--space-sm) var(--space-md);
     }
 
-    .logo.loaded .logo-text {
-      transition-delay: 0.2s;
+    .btn-ghost:hover {
+      color: var(--text-primary);
+      background: var(--bg-muted);
     }
 
     .nav-links {
@@ -432,8 +425,6 @@
       color: var(--bg-base);
       transform: translateY(-1px);
     }
-
-    .btn-ghost {
       background: transparent;
       color: var(--text-secondary);
       padding: var(--space-sm) var(--space-md);
@@ -729,6 +720,7 @@
       border: 1px solid var(--border);
       border-radius: var(--radius-lg);
       padding: var(--space-xl);
+      text-align: center;
       transition: all 0.3s var(--ease-out);
     }
 
@@ -746,7 +738,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      margin-bottom: var(--space-lg);
+      margin: 0 auto var(--space-lg);
       color: #f87171;
     }
 
@@ -1526,6 +1518,13 @@
 
       .footer-brand {
         max-width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .footer-brand .logo {
+        justify-content: center;
       }
 
       .footer-links {
@@ -1972,7 +1971,7 @@
           </svg>
           Platform
         </div>
-        <h2 class="section-title">Five tightly connected layers</h2>
+        <h2 class="section-title">Six tightly connected layers</h2>
         <p class="section-desc">
           A complete system for mobile quality, launch, and distribution
         </p>
@@ -2237,7 +2236,7 @@
           <h2>Ready to launch with <span class="gradient-text">confidence</span>?</h2>
           <p>Join the private beta and get early access to real-world mobile intelligence.</p>
           <div class="cta-buttons">
-            <a href="mailto:hello@sorka.ai" class="btn btn-primary">
+            <a href="mailto:contact@sorka.ai" class="btn btn-primary">
               Request Early Access
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M5 12h14M12 5l7 7-7 7"/>
@@ -2274,7 +2273,7 @@
         <div class="footer-column">
           <h4>Company</h4>
           <div class="footer-links">
-            <a href="mailto:hello@sorka.ai" class="footer-link">Contact</a>
+            <a href="mailto:contact@sorka.ai" class="footer-link">Contact</a>
             <a href="mailto:careers@sorka.ai" class="footer-link">Careers</a>
           </div>
         </div>
