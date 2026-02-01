@@ -3,6 +3,17 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#09090b">
+  <script>
+    (function () {
+      const storedTheme = localStorage.getItem('theme');
+      if (storedTheme === 'light' || storedTheme === 'dark') {
+        document.documentElement.setAttribute('data-theme', storedTheme);
+      } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
+        document.documentElement.setAttribute('data-theme', 'light');
+      }
+    })();
+  </script>
   <title>Sorka — Real-World Intelligence for Mobile at Scale</title>
   <meta name="description" content="Know your build is safe to scale—before you pay to scale it. Real devices. Real users. Real intelligence.">
   
@@ -76,6 +87,50 @@
       /* Transitions */
       --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
       --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+      /* Theme helpers */
+      --nav-bg: rgba(9, 9, 11, 0.9);
+      --card-bg: rgba(15, 15, 18, 0.92);
+      --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      --card-highlight: radial-gradient(circle at top left, rgba(255, 255, 255, 0.08), transparent 60%);
+      --icon-bg: rgba(255, 255, 255, 0.02);
+      --badge-border: rgba(255, 255, 255, 0.1);
+      --grid-line: rgba(255, 255, 255, 0.04);
+      --flow-line: rgba(255, 255, 255, 0.12);
+      --pill-bg: rgba(15, 15, 18, 0.6);
+    }
+
+    html[data-theme="light"] {
+      --bg-base: #f3efe7;
+      --bg-subtle: #fbf8f2;
+      --bg-muted: #ece4d8;
+      --bg-elevated: #fffaf3;
+      --bg-hover: #e5dccd;
+
+      --text-primary: #2b2420;
+      --text-secondary: #5c5248;
+      --text-muted: #7a6f63;
+      --text-faint: #a2978b;
+
+      --accent-muted: rgba(0, 212, 170, 0.12);
+      --accent-glow: rgba(0, 212, 170, 0.25);
+      --blue-muted: rgba(0, 153, 255, 0.12);
+
+      --border: rgba(43, 36, 32, 0.12);
+      --border-hover: rgba(43, 36, 32, 0.2);
+
+      --gradient-subtle: linear-gradient(180deg, #fbf8f2 0%, #f3efe7 100%);
+      --gradient-radial: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(0, 212, 170, 0.06), transparent);
+
+      --nav-bg: rgba(251, 248, 242, 0.92);
+      --card-bg: rgba(255, 250, 243, 0.96);
+      --card-shadow: 0 10px 30px rgba(44, 35, 28, 0.12);
+      --card-highlight: radial-gradient(circle at top left, rgba(44, 35, 28, 0.06), transparent 60%);
+      --icon-bg: rgba(44, 35, 28, 0.04);
+      --badge-border: rgba(44, 35, 28, 0.12);
+      --grid-line: rgba(44, 35, 28, 0.06);
+      --flow-line: rgba(44, 35, 28, 0.14);
+      --pill-bg: rgba(255, 250, 243, 0.8);
     }
 
     * {
@@ -188,7 +243,7 @@
     }
 
     .nav.scrolled {
-      background: rgba(9, 9, 11, 0.9);
+      background: var(--nav-bg);
       backdrop-filter: blur(20px) saturate(180%);
       -webkit-backdrop-filter: blur(20px) saturate(180%);
       border-bottom: 1px solid var(--border);
@@ -370,6 +425,43 @@
       gap: var(--space-sm);
     }
 
+    .theme-toggle {
+      width: 40px;
+      height: 40px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border);
+      background: var(--bg-muted);
+      color: var(--text-secondary);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .theme-toggle:hover {
+      color: var(--text-primary);
+      border-color: var(--border-hover);
+      background: var(--bg-hover);
+    }
+
+    .theme-toggle svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    .theme-toggle .icon-moon {
+      display: none;
+    }
+
+    html[data-theme="light"] .theme-toggle .icon-sun {
+      display: none;
+    }
+
+    html[data-theme="light"] .theme-toggle .icon-moon {
+      display: block;
+    }
+
     .btn {
       display: inline-flex;
       align-items: center;
@@ -501,6 +593,12 @@
       justify-content: center;
       padding: var(--space-md);
       font-size: 1rem;
+    }
+
+    .mobile-theme-toggle {
+      width: 100%;
+      justify-content: center;
+      gap: var(--space-sm);
     }
 
     .mobile-menu .btn-primary {
@@ -1097,8 +1195,8 @@
       position: absolute;
       inset: 0;
       background-image:
-        linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+        linear-gradient(var(--grid-line) 1px, transparent 1px),
+        linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
       background-size: 60px 60px;
       opacity: 0.3;
       pointer-events: none;
@@ -1115,7 +1213,7 @@
 
     .flow-path {
       fill: none;
-      stroke: rgba(255, 255, 255, 0.12);
+      stroke: var(--flow-line);
       stroke-width: 1.5;
       stroke-linecap: round;
       stroke-linejoin: round;
@@ -1138,10 +1236,10 @@
       position: relative;
       z-index: 2;
       padding: var(--space-lg);
-      background: rgba(15, 15, 18, 0.92);
+      background: var(--card-bg);
       border: 1px solid var(--border);
       border-radius: var(--radius-lg);
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      box-shadow: var(--card-shadow);
       transition: all 0.3s var(--ease-out);
       --node-accent: var(--accent);
       --node-glow: rgba(0, 212, 170, 0.35);
@@ -1152,7 +1250,7 @@
       position: absolute;
       inset: 0;
       border-radius: inherit;
-      background: radial-gradient(circle at top left, rgba(255, 255, 255, 0.08), transparent 60%);
+      background: var(--card-highlight);
       opacity: 0;
       transition: opacity 0.3s ease;
       pointer-events: none;
@@ -1197,7 +1295,7 @@
       width: 38px;
       height: 38px;
       border-radius: var(--radius-md);
-      background: rgba(255, 255, 255, 0.02);
+      background: var(--icon-bg);
       border: 1px solid var(--border);
       display: inline-flex;
       align-items: center;
@@ -1230,7 +1328,7 @@
     .flow-node-status {
       padding: 2px 8px;
       border-radius: var(--radius-full);
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      border: 1px solid var(--badge-border);
       color: var(--node-accent);
       font-weight: 600;
     }
@@ -1284,7 +1382,7 @@
       letter-spacing: 0.08em;
       color: var(--text-secondary);
       margin-bottom: var(--space-md);
-      background: rgba(15, 15, 18, 0.6);
+      background: var(--pill-bg);
     }
 
     .flow-example h3 {
@@ -1950,7 +2048,7 @@
       <div class="nav-inner">
         <a href="#" class="logo" id="mainLogo">
           <div class="logo-mark">
-            <img src="assets/logo.png" alt="Sorka" />
+            <img src="assets/logo.png" alt="Sorka" data-logo-dark="assets/logo.png" data-logo-light="assets/logo-invert.png" />
           </div>
           <span class="logo-text">SORKA</span>
         </a>
@@ -1961,6 +2059,15 @@
           <a href="#platform" class="nav-link">Platform</a>
         </div>
         <div class="nav-cta">
+          <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch to light mode" aria-pressed="false">
+            <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="4"/>
+              <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/>
+            </svg>
+            <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3a7 7 0 1 0 9.79 9.79z"/>
+            </svg>
+          </button>
           <a href="#cta" class="btn btn-inverted">Documentation</a>
           <a href="#cta" class="btn btn-primary">Get Early Access</a>
         </div>
@@ -1986,6 +2093,9 @@
     <a href="#how" class="mobile-link">How It Works</a>
     <a href="#platform" class="mobile-link">Platform</a>
     <a href="#cta" class="mobile-link">Documentation</a>
+    <button class="btn btn-secondary mobile-theme-toggle" id="themeToggleMobile" type="button" aria-label="Switch to light mode">
+      <span>Light Mode</span>
+    </button>
     <a href="#cta" class="btn btn-primary">Get Early Access</a>
   </div>
 
@@ -2286,8 +2396,9 @@
           <div class="flow-node flow-node-control" data-node="api" style="grid-column: 4 / span 6; grid-row: 2; --order: 2;">
             <div class="flow-node-icon">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M12 2l7 4v6c0 5-3.5 9-7 10-3.5-1-7-5-7-10V6l7-4z"/>
-                <polyline points="9 12 11 14 15 10"/>
+              <rect x="9" y="2" width="6" height="4" rx="1"/>
+              <path d="M9 4H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-2"/>
+              <path d="M9 13l2 2 4-4"/>
               </svg>
             </div>
             <div class="flow-node-meta">
@@ -2820,7 +2931,7 @@
         <div class="footer-brand">
           <a href="#" class="logo">
             <div class="logo-mark">
-              <img src="assets/logo.png" alt="Sorka" />
+              <img src="assets/logo.png" alt="Sorka" data-logo-dark="assets/logo.png" data-logo-light="assets/logo-invert.png" />
             </div>
             <span class="logo-text">SORKA</span>
           </a>
@@ -2865,6 +2976,74 @@
   </footer>
 
   <script>
+    // Theme toggle
+    const themeToggle = document.getElementById('themeToggle');
+    const themeToggleMobile = document.getElementById('themeToggleMobile');
+    const themeMeta = document.querySelector('meta[name="theme-color"]');
+    const storedTheme = localStorage.getItem('theme');
+    const prefersLight = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;
+    const initialTheme = storedTheme === 'light' || storedTheme === 'dark'
+      ? storedTheme
+      : (prefersLight ? 'light' : 'dark');
+
+    const applyTheme = (theme, persist) => {
+      document.documentElement.setAttribute('data-theme', theme);
+      if (persist) {
+        localStorage.setItem('theme', theme);
+      }
+      const logoImages = document.querySelectorAll('.logo-mark img');
+      logoImages.forEach((img) => {
+        const darkSrc = img.dataset.logoDark;
+        const lightSrc = img.dataset.logoLight;
+        if (darkSrc && lightSrc) {
+          img.src = theme === 'light' ? lightSrc : darkSrc;
+        }
+      });
+      const nextLabel = theme === 'light' ? 'Dark Mode' : 'Light Mode';
+      if (themeToggle) {
+        themeToggle.setAttribute('aria-label', `Switch to ${nextLabel}`);
+        themeToggle.setAttribute('aria-pressed', theme === 'light' ? 'true' : 'false');
+      }
+      if (themeToggleMobile) {
+        const labelEl = themeToggleMobile.querySelector('span');
+        if (labelEl) {
+          labelEl.textContent = nextLabel;
+        }
+        themeToggleMobile.setAttribute('aria-label', `Switch to ${nextLabel}`);
+      }
+      if (themeMeta) {
+        themeMeta.setAttribute('content', theme === 'light' ? '#f3efe7' : '#09090b');
+      }
+    };
+
+    applyTheme(initialTheme, Boolean(storedTheme));
+
+    const toggleTheme = () => {
+      const current = document.documentElement.getAttribute('data-theme') || 'dark';
+      const next = current === 'light' ? 'dark' : 'light';
+      applyTheme(next, true);
+    };
+
+    if (themeToggle) {
+      themeToggle.addEventListener('click', toggleTheme);
+    }
+
+    if (themeToggleMobile) {
+      themeToggleMobile.addEventListener('click', toggleTheme);
+    }
+
+    if (!storedTheme && window.matchMedia) {
+      const mediaQuery = window.matchMedia('(prefers-color-scheme: light)');
+      const handleChange = (event) => {
+        applyTheme(event.matches ? 'light' : 'dark', false);
+      };
+      if (mediaQuery.addEventListener) {
+        mediaQuery.addEventListener('change', handleChange);
+      } else if (mediaQuery.addListener) {
+        mediaQuery.addListener(handleChange);
+      }
+    }
+
     // Logo animation on page load
     const mainLogo = document.getElementById('mainLogo');
     if (mainLogo) {
