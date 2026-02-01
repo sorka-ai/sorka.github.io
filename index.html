@@ -425,15 +425,6 @@
       color: var(--bg-base);
       transform: translateY(-1px);
     }
-      background: transparent;
-      color: var(--text-secondary);
-      padding: var(--space-sm) var(--space-md);
-    }
-
-    .btn-ghost:hover {
-      color: var(--text-primary);
-      background: var(--bg-muted);
-    }
 
     /* Mobile Menu Toggle */
     .mobile-toggle {
@@ -1032,6 +1023,315 @@
       margin: 0 auto;
     }
 
+    /* ===== HOW IT WORKS FLOW ===== */
+    .how-flow {
+      margin-top: var(--space-3xl);
+    }
+
+    .flow-legend {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-md);
+      margin-bottom: var(--space-2xl);
+    }
+
+    .flow-legend-item {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-sm);
+      padding: 6px 14px;
+      background: var(--bg-base);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-full);
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .flow-legend-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+
+    .flow-legend-dot.control {
+      background: var(--accent);
+      box-shadow: 0 0 10px var(--accent-glow);
+    }
+
+    .flow-legend-dot.exec {
+      background: var(--blue);
+      box-shadow: 0 0 10px rgba(0, 153, 255, 0.4);
+    }
+
+    .flow-legend-dot.data {
+      background: #a78bfa;
+      box-shadow: 0 0 10px rgba(167, 139, 250, 0.4);
+    }
+
+    .flow-legend-dot.launch {
+      background: #f59e0b;
+      box-shadow: 0 0 10px rgba(245, 158, 11, 0.4);
+    }
+
+    .flow-canvas {
+      position: relative;
+      display: grid;
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+      grid-template-rows: repeat(9, minmax(88px, auto));
+      gap: var(--space-lg);
+      padding: var(--space-2xl);
+      border-radius: var(--radius-xl);
+      border: 1px solid var(--border);
+      background:
+        radial-gradient(circle at top, rgba(0, 212, 170, 0.08), transparent 60%),
+        linear-gradient(180deg, var(--bg-subtle) 0%, var(--bg-base) 100%);
+      overflow: hidden;
+    }
+
+    .flow-canvas::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+      opacity: 0.3;
+      pointer-events: none;
+    }
+
+    .flow-lines {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .flow-path {
+      fill: none;
+      stroke: rgba(255, 255, 255, 0.12);
+      stroke-width: 1.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .flow-path.flow-path-pulse {
+      stroke: url(#flow-gradient);
+      stroke-width: 2;
+      stroke-dasharray: 6 14;
+      animation: flow-dash 6s linear infinite;
+      opacity: 0.8;
+    }
+
+    @keyframes flow-dash {
+      from { stroke-dashoffset: 0; }
+      to { stroke-dashoffset: -120; }
+    }
+
+    .flow-node {
+      position: relative;
+      z-index: 2;
+      padding: var(--space-lg);
+      background: rgba(15, 15, 18, 0.92);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      transition: all 0.3s var(--ease-out);
+      --node-accent: var(--accent);
+      --node-glow: rgba(0, 212, 170, 0.35);
+    }
+
+    .flow-node::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      background: radial-gradient(circle at top left, rgba(255, 255, 255, 0.08), transparent 60%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+    }
+
+    .flow-node:hover {
+      transform: translateY(-4px);
+      border-color: var(--border-hover);
+    }
+
+    .flow-node:hover::after {
+      opacity: 1;
+    }
+
+    .flow-node.is-active {
+      border-color: var(--node-accent);
+      box-shadow: 0 0 30px var(--node-glow);
+      transform: translateY(-2px);
+    }
+
+    .flow-node-control {
+      --node-accent: var(--accent);
+      --node-glow: rgba(0, 212, 170, 0.35);
+    }
+
+    .flow-node-exec {
+      --node-accent: var(--blue);
+      --node-glow: rgba(0, 153, 255, 0.35);
+    }
+
+    .flow-node-data {
+      --node-accent: #a78bfa;
+      --node-glow: rgba(167, 139, 250, 0.35);
+    }
+
+    .flow-node-launch {
+      --node-accent: #f59e0b;
+      --node-glow: rgba(245, 158, 11, 0.35);
+    }
+
+    .flow-node-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: var(--radius-md);
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--border);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--node-accent);
+      margin-bottom: var(--space-sm);
+    }
+
+    .flow-node-icon svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    .flow-node-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-sm);
+      margin-bottom: var(--space-sm);
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .flow-node-kicker {
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    .flow-node-status {
+      padding: 2px 8px;
+      border-radius: var(--radius-full);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: var(--node-accent);
+      font-weight: 600;
+    }
+
+    .flow-node h3 {
+      font-size: 0.975rem;
+      font-weight: 600;
+      margin-bottom: var(--space-sm);
+    }
+
+    .flow-node p {
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+
+    .flow-node-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: var(--space-md);
+    }
+
+    .flow-node-tag {
+      padding: 3px 8px;
+      background: var(--bg-muted);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-full);
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .flow-example {
+      margin-top: var(--space-2xl);
+      padding: var(--space-xl);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border);
+      background: linear-gradient(135deg, rgba(0, 212, 170, 0.08), rgba(0, 153, 255, 0.08));
+    }
+
+    .flow-example-label {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-sm);
+      padding: 4px 12px;
+      border-radius: var(--radius-full);
+      border: 1px solid var(--border);
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-secondary);
+      margin-bottom: var(--space-md);
+      background: rgba(15, 15, 18, 0.6);
+    }
+
+    .flow-example h3 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: var(--space-sm);
+    }
+
+    .flow-example p {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      line-height: 1.7;
+    }
+
+    @media (max-width: 1024px) {
+      .flow-canvas {
+        padding: var(--space-xl);
+      }
+    }
+
+    @media (max-width: 900px) {
+      .flow-canvas {
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-lg);
+        min-height: auto;
+      }
+
+      .flow-lines {
+        display: none;
+      }
+
+      .flow-node {
+        order: var(--order);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .flow-path.flow-path-pulse {
+        animation: none;
+      }
+
+      .flow-node {
+        transition: none;
+      }
+    }
+
     /* ===== PLATFORM ===== */
     .platform-grid {
       display: grid;
@@ -1308,6 +1608,22 @@
       background: var(--gradient-accent);
     }
 
+    .cta-box.cta-highlight {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 0 rgba(0, 212, 170, 0.35);
+      animation: ctaPulse 1.2s var(--ease-out);
+    }
+
+    .cta-box.cta-highlight .btn-primary {
+      box-shadow: 0 0 24px var(--accent-glow);
+    }
+
+    @keyframes ctaPulse {
+      0% { box-shadow: 0 0 0 0 rgba(0, 212, 170, 0.35); transform: translateY(0); }
+      50% { box-shadow: 0 0 0 14px rgba(0, 212, 170, 0.12); transform: translateY(-2px); }
+      100% { box-shadow: 0 0 0 0 rgba(0, 212, 170, 0); transform: translateY(0); }
+    }
+
     .cta-content {
       position: relative;
       z-index: 1;
@@ -1411,6 +1727,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      gap: 8px;
       color: var(--text-muted);
       text-decoration: none;
       transition: all 0.2s ease;
@@ -1424,6 +1741,18 @@
     .footer-social svg {
       width: 18px;
       height: 18px;
+    }
+
+    .footer-social--wide {
+      width: auto;
+      padding: 0 16px;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      color: var(--text-secondary);
+    }
+
+    .footer-social--wide span {
+      font-size: 0.875rem;
     }
 
     /* ===== RESPONSIVE ===== */
@@ -1606,6 +1935,12 @@
         padding: 6px 10px;
       }
     }
+
+    @media (prefers-reduced-motion: reduce) {
+      .cta-box.cta-highlight {
+        animation: none;
+      }
+    }
   </style>
 </head>
 <body>
@@ -1626,7 +1961,7 @@
           <a href="#platform" class="nav-link">Platform</a>
         </div>
         <div class="nav-cta">
-          <a href="https://sorka-ai.github.io/wikis/" class="btn btn-inverted" target="_blank">Documentation</a>
+          <a href="#cta" class="btn btn-inverted">Documentation</a>
           <a href="#cta" class="btn btn-primary">Get Early Access</a>
         </div>
         <button class="mobile-toggle" id="mobileToggle" aria-label="Menu">
@@ -1650,7 +1985,7 @@
     <a href="#solution" class="mobile-link">Solution</a>
     <a href="#how" class="mobile-link">How It Works</a>
     <a href="#platform" class="mobile-link">Platform</a>
-    <a href="https://sorka-ai.github.io/wikis/" class="mobile-link" target="_blank">Documentation</a>
+    <a href="#cta" class="mobile-link">Documentation</a>
     <a href="#cta" class="btn btn-primary">Get Early Access</a>
   </div>
 
@@ -1813,7 +2148,7 @@
               </div>
               <div>
                 <h4>Real-World Execution</h4>
-                <p>Run on actual OEM devices, real networks, real environments</p>
+                <p>Run on actual devices, real networks, real environments</p>
               </div>
             </div>
             <div class="solution-feature">
@@ -1912,48 +2247,278 @@
           </svg>
           How It Works
         </div>
-        <h2 class="section-title">From build to launch intelligence</h2>
+        <h2 class="section-title">A clear loop from build to real-world proof and launch confidence</h2>
         <p class="section-desc">
-          A streamlined flow that turns every execution into actionable signal
+          Upload once. We run your app on real devices contributed by people. Device owners earn for idle capacity, and you get clear launch readiness signals.
         </p>
       </div>
-      <div class="how-steps">
-        <div class="how-step">
-          <div class="how-step-number">1</div>
-          <div class="how-step-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-              <polyline points="17 8 12 3 7 8"/>
-              <line x1="12" y1="3" x2="12" y2="15"/>
-            </svg>
-          </div>
-          <h3>Submit Your Build</h3>
-          <p>Upload your APK with tests or guided flows. Define what signal you need.</p>
+      <div class="how-flow">
+        <div class="flow-legend">
+          <div class="flow-legend-item"><span class="flow-legend-dot control"></span>Sorka Platform</div>
+          <div class="flow-legend-item"><span class="flow-legend-dot exec"></span>Real Devices + People</div>
+          <div class="flow-legend-item"><span class="flow-legend-dot data"></span>Signals + Insights</div>
+          <div class="flow-legend-item"><span class="flow-legend-dot launch"></span>Device Rewards</div>
         </div>
-        <div class="how-step">
-          <div class="how-step-number">2</div>
-          <div class="how-step-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <polyline points="16 3 21 3 21 8"/>
-              <line x1="4" y1="20" x2="21" y2="3"/>
-              <polyline points="21 16 21 21 16 21"/>
-              <line x1="15" y1="15" x2="21" y2="21"/>
-              <line x1="4" y1="4" x2="9" y2="9"/>
-            </svg>
+        <div class="flow-canvas" id="flowCanvas" role="img" aria-label="End-to-end execution flow from build submission to payouts">
+          <svg class="flow-lines" aria-hidden="true"></svg>
+
+          <div class="flow-node flow-node-control" data-node="submit" style="grid-column: 4 / span 6; grid-row: 1; --order: 1;">
+            <div class="flow-node-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                <polyline points="17 8 12 3 7 8"/>
+                <line x1="12" y1="3" x2="12" y2="15"/>
+              </svg>
+            </div>
+            <div class="flow-node-meta">
+              <span class="flow-node-kicker">Your team</span>
+              <span class="flow-node-status">Start</span>
+            </div>
+            <h3>Upload Your Build + Goals</h3>
+            <p>Share an APK and what you want to learn: speed, stability, conversion, or retention.</p>
+            <div class="flow-node-tags">
+              <span class="flow-node-tag">APK</span>
+              <span class="flow-node-tag">Goals</span>
+              <span class="flow-node-tag">Target profiles</span>
+            </div>
           </div>
-          <h3>Intelligent Routing</h3>
-          <p>We route across distributed devices, cloud providers, and human pools.</p>
+
+          <div class="flow-node flow-node-control" data-node="api" style="grid-column: 4 / span 6; grid-row: 2; --order: 2;">
+            <div class="flow-node-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 2l7 4v6c0 5-3.5 9-7 10-3.5-1-7-5-7-10V6l7-4z"/>
+                <polyline points="9 12 11 14 15 10"/>
+              </svg>
+            </div>
+            <div class="flow-node-meta">
+              <span class="flow-node-kicker">Sorka platform</span>
+              <span class="flow-node-status">Setup</span>
+            </div>
+            <h3>We Verify + Prepare</h3>
+            <p>We check the build, apply safety rules, and create the run plan.</p>
+            <div class="flow-node-tags">
+              <span class="flow-node-tag">Safety</span>
+              <span class="flow-node-tag">Run plan</span>
+              <span class="flow-node-tag">Compliance</span>
+            </div>
+          </div>
+
+          <div class="flow-node flow-node-control" data-node="routing" style="grid-column: 4 / span 6; grid-row: 3; --order: 3;">
+            <div class="flow-node-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="16 3 21 3 21 8"/>
+                <line x1="4" y1="20" x2="21" y2="3"/>
+                <polyline points="21 16 21 21 16 21"/>
+                <line x1="15" y1="15" x2="21" y2="21"/>
+                <line x1="4" y1="4" x2="9" y2="9"/>
+              </svg>
+            </div>
+            <div class="flow-node-meta">
+              <span class="flow-node-kicker">Sorka matching</span>
+              <span class="flow-node-status">Match</span>
+            </div>
+            <h3>Smart Matching</h3>
+            <p>We choose the best mix of devices, regions, and people based on your goals and budget.</p>
+            <div class="flow-node-tags">
+              <span class="flow-node-tag">Coverage</span>
+              <span class="flow-node-tag">Speed</span>
+              <span class="flow-node-tag">Cost</span>
+            </div>
+          </div>
+
+          <div class="flow-node flow-node-exec" data-node="mesh" style="grid-column: 1 / span 4; grid-row: 4; --order: 4;">
+            <div class="flow-node-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="2" y="4" width="20" height="14" rx="2" ry="2"/>
+                <line x1="2" y1="18" x2="22" y2="18"/>
+                <line x1="8" y1="22" x2="16" y2="22"/>
+              </svg>
+            </div>
+            <div class="flow-node-meta">
+              <span class="flow-node-kicker">Real devices</span>
+              <span class="flow-node-status">Device network</span>
+            </div>
+            <h3>Distributed Device Network</h3>
+            <p>Everyday laptops run a light Sorka agent and connect real phones. When devices are idle, owners earn for secure test sessions.</p>
+            <div class="flow-node-tags">
+              <span class="flow-node-tag">Idle device income</span>
+              <span class="flow-node-tag">Home laptops</span>
+              <span class="flow-node-tag">Real phones</span>
+            </div>
+          </div>
+
+          <div class="flow-node flow-node-exec" data-node="providers" style="grid-column: 5 / span 4; grid-row: 4; --order: 5;">
+            <div class="flow-node-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M20 17.5a4.5 4.5 0 0 0-1-8.9A6 6 0 1 0 6 17.5"/>
+                <path d="M6 17.5h14"/>
+              </svg>
+            </div>
+            <div class="flow-node-meta">
+              <span class="flow-node-kicker">Extra coverage</span>
+              <span class="flow-node-status">Partner labs</span>
+            </div>
+            <h3>Partner Device Labs</h3>
+            <p>When you need rare devices or scale, we add trusted providers.</p>
+            <div class="flow-node-tags">
+              <span class="flow-node-tag">Device diversity</span>
+              <span class="flow-node-tag">Scale</span>
+              <span class="flow-node-tag">SLA</span>
+            </div>
+          </div>
+
+          <div class="flow-node flow-node-exec" data-node="human" style="grid-column: 9 / span 4; grid-row: 4; --order: 6;">
+            <div class="flow-node-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                <circle cx="9" cy="7" r="4"/>
+                <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+              </svg>
+            </div>
+            <div class="flow-node-meta">
+              <span class="flow-node-kicker">Real people</span>
+              <span class="flow-node-status">Guided runs</span>
+            </div>
+            <h3>Guided Human Runs</h3>
+            <p>Real users follow scripted tasks or use the app naturally in their own context.</p>
+            <div class="flow-node-tags">
+              <span class="flow-node-tag">Personas</span>
+              <span class="flow-node-tag">Locales</span>
+              <span class="flow-node-tag">Natural usage</span>
+            </div>
+          </div>
+
+          <div class="flow-node flow-node-data" data-node="telemetry" style="grid-column: 4 / span 6; grid-row: 5; --order: 7;">
+            <div class="flow-node-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+              </svg>
+            </div>
+            <div class="flow-node-meta">
+              <span class="flow-node-kicker">Signals</span>
+              <span class="flow-node-status">Live feed</span>
+            </div>
+            <h3>Live Signals</h3>
+            <p>We capture crashes, speed, visuals, and user actions from every run.</p>
+            <div class="flow-node-tags">
+              <span class="flow-node-tag">Crashes</span>
+              <span class="flow-node-tag">Performance</span>
+              <span class="flow-node-tag">UX</span>
+            </div>
+          </div>
+
+          <div class="flow-node flow-node-data" data-node="schema" style="grid-column: 4 / span 6; grid-row: 6; --order: 8;">
+            <div class="flow-node-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <ellipse cx="12" cy="5" rx="9" ry="3"/>
+                <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/>
+                <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/>
+              </svg>
+            </div>
+            <div class="flow-node-meta">
+              <span class="flow-node-kicker">Data platform</span>
+              <span class="flow-node-status">Unify</span>
+            </div>
+            <h3>One Clean Data Record</h3>
+            <p>Everything becomes a comparable dataset you can track across builds and devices.</p>
+            <div class="flow-node-tags">
+              <span class="flow-node-tag">History</span>
+              <span class="flow-node-tag">Artifacts</span>
+              <span class="flow-node-tag">Benchmarks</span>
+            </div>
+          </div>
+
+          <div class="flow-node flow-node-data" data-node="intelligence" style="grid-column: 4 / span 6; grid-row: 7; --order: 9;">
+            <div class="flow-node-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="8"/>
+                <circle cx="12" cy="12" r="2"/>
+                <line x1="12" y1="2" x2="12" y2="6"/>
+                <line x1="12" y1="18" x2="12" y2="22"/>
+                <line x1="2" y1="12" x2="6" y2="12"/>
+                <line x1="18" y1="12" x2="22" y2="12"/>
+              </svg>
+            </div>
+            <div class="flow-node-meta">
+              <span class="flow-node-kicker">Insights</span>
+              <span class="flow-node-status">Ready / not</span>
+            </div>
+            <h3>Launch Readiness</h3>
+            <p>Clear scores, risk hotspots, and where your app is safe to scale first.</p>
+            <div class="flow-node-tags">
+              <span class="flow-node-tag">Scores</span>
+              <span class="flow-node-tag">Risk map</span>
+              <span class="flow-node-tag">Geo fit</span>
+            </div>
+          </div>
+
+          <div class="flow-node flow-node-launch" data-node="launchpad" style="grid-column: 3 / span 4; grid-row: 8; --order: 10;">
+            <div class="flow-node-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 2L11 13"/>
+                <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+              </svg>
+            </div>
+            <div class="flow-node-meta">
+              <span class="flow-node-kicker">Optional growth</span>
+              <span class="flow-node-status">Paid trials</span>
+            </div>
+            <h3>Optional Paid Trials</h3>
+            <p>If you want a growth signal, run verified trials with real users before you scale spend.</p>
+            <div class="flow-node-tags">
+              <span class="flow-node-tag">Optional</span>
+              <span class="flow-node-tag">Retention signal</span>
+            </div>
+          </div>
+
+          <div class="flow-node flow-node-launch" data-node="payouts" style="grid-column: 7 / span 4; grid-row: 8; --order: 11;">
+            <div class="flow-node-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="12" y1="1" x2="12" y2="23"/>
+                <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+              </svg>
+            </div>
+            <div class="flow-node-meta">
+              <span class="flow-node-kicker">Trust + incentives</span>
+              <span class="flow-node-status">Earnings</span>
+            </div>
+            <h3>Device Rewards + Trust</h3>
+            <p>People earn for keeping devices available and completing verified sessions. Fraud checks keep the network clean and improve trust scores.</p>
+            <div class="flow-node-tags">
+              <span class="flow-node-tag">Availability</span>
+              <span class="flow-node-tag">Anti-fraud</span>
+              <span class="flow-node-tag">Trust score</span>
+            </div>
+          </div>
+
+          <div class="flow-node flow-node-control" data-node="feedback" style="grid-column: 4 / span 6; grid-row: 9; --order: 12;">
+            <div class="flow-node-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="23 4 23 10 17 10"/>
+                <polyline points="1 20 1 14 7 14"/>
+                <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10"/>
+                <path d="M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/>
+              </svg>
+            </div>
+            <div class="flow-node-meta">
+              <span class="flow-node-kicker">Feedback loop</span>
+              <span class="flow-node-status">Decide</span>
+            </div>
+            <h3>Decide + Iterate</h3>
+            <p>Teams fix issues or scale with confidence, and each run makes the next one smarter.</p>
+            <div class="flow-node-tags">
+              <span class="flow-node-tag">Launch plan</span>
+              <span class="flow-node-tag">Iteration</span>
+            </div>
+          </div>
         </div>
-        <div class="how-step">
-          <div class="how-step-number">3</div>
-          <div class="how-step-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
-              <polyline points="22 4 12 14.01 9 11.01"/>
-            </svg>
-          </div>
-          <h3>Get Launch Intelligence</h3>
-          <p>Receive readiness scores, risk profiles, and geo signals. Know where to scale.</p>
+        <div class="flow-example">
+          <div class="flow-example-label">Example</div>
+          <h3>A Consumer Finance App Preparing to Scale</h3>
+          <p>
+            The team uploads a new build and asks for speed, stability, and onboarding completion. Sorka runs it across idle devices in the network and guided users in key regions. The dashboard flags a crash cluster on a popular Android model and shows slower onboarding on low-end networks. The team fixes those issues. If they want a growth signal, they launch an optional paid trial to validate retention. Device owners earn for availability and verified sessions, and the team sees true engagement before increasing spend.
+          </p>
         </div>
       </div>
     </div>
@@ -2267,7 +2832,7 @@
             <a href="#solution" class="footer-link">Solution</a>
             <a href="#how" class="footer-link">How It Works</a>
             <a href="#platform" class="footer-link">Architecture</a>
-            <a href="https://sorka-ai.github.io/wikis/" class="footer-link" target="_blank">Documentation</a>
+            <a href="#cta" class="footer-link">Documentation</a>
           </div>
         </div>
         <div class="footer-column">
@@ -2288,15 +2853,11 @@
       <div class="footer-bottom">
         <div class="footer-copy">© 2026 Sorka Inc. All rights reserved.</div>
         <div class="footer-socials">
-          <a href="https://github.com/sorka-ai" class="footer-social" aria-label="GitHub" target="_blank">
+          <a href="https://github.com/sorka-ai" class="footer-social footer-social--wide" aria-label="GitHub" target="_blank">
             <svg viewBox="0 0 24 24" fill="currentColor">
               <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
             </svg>
-          </a>
-          <a href="https://linkedin.com/company/sorka-ai" class="footer-social" aria-label="LinkedIn" target="_blank">
-            <svg viewBox="0 0 24 24" fill="currentColor">
-              <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-            </svg>
+            <span>GitHub</span>
           </a>
         </div>
       </div>
@@ -2342,16 +2903,42 @@
       });
     });
 
-    // Smooth scroll for anchor links
+    // Smooth scroll for anchor links + highlight CTA
+    const ctaBox = document.querySelector('.cta-box');
+    const highlightCta = () => {
+      if (!ctaBox) return;
+      ctaBox.classList.remove('cta-highlight');
+      void ctaBox.offsetWidth;
+      ctaBox.classList.add('cta-highlight');
+      window.setTimeout(() => {
+        ctaBox.classList.remove('cta-highlight');
+      }, 1400);
+    };
+
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       anchor.addEventListener('click', function (e) {
         e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-          target.scrollIntoView({
-            behavior: 'smooth',
-            block: 'start'
-          });
+        const targetSelector = this.getAttribute('href');
+        const target = document.querySelector(targetSelector);
+        if (!target) return;
+
+        const isCta = targetSelector === '#cta';
+        if (isCta) {
+          const rect = target.getBoundingClientRect();
+          const inView = rect.top < window.innerHeight && rect.bottom > 0;
+          if (inView) {
+            highlightCta();
+            return;
+          }
+        }
+
+        target.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        });
+
+        if (isCta) {
+          window.setTimeout(highlightCta, 600);
         }
       });
     });
@@ -2372,13 +2959,144 @@
     }, observerOptions);
 
     // Observe elements
-    const animateElements = document.querySelectorAll('.problem-card, .how-step, .platform-card, .diff-card, .solution-feature');
+    const animateElements = document.querySelectorAll('.problem-card, .flow-node, .flow-legend-item, .platform-card, .diff-card, .solution-feature');
     animateElements.forEach((el, i) => {
       el.style.opacity = '0';
       el.style.transform = 'translateY(20px)';
       el.style.transition = `opacity 0.6s ease ${i * 0.08}s, transform 0.6s ease ${i * 0.08}s`;
       observer.observe(el);
     });
+
+    // Flow canvas connections + sequence
+    const flowCanvas = document.getElementById('flowCanvas');
+    if (flowCanvas) {
+      const flowSvg = flowCanvas.querySelector('.flow-lines');
+      const flowNodes = Array.from(flowCanvas.querySelectorAll('.flow-node'));
+      const nodeMap = {};
+
+      flowNodes.forEach(node => {
+        if (node.dataset.node) {
+          nodeMap[node.dataset.node] = node;
+        }
+      });
+
+      const flowConnections = [
+        ['submit', 'api'],
+        ['api', 'routing'],
+        ['routing', 'mesh'],
+        ['routing', 'providers'],
+        ['routing', 'human'],
+        ['mesh', 'telemetry'],
+        ['providers', 'telemetry'],
+        ['human', 'telemetry'],
+        ['telemetry', 'schema'],
+        ['schema', 'intelligence'],
+        ['intelligence', 'launchpad'],
+        ['launchpad', 'payouts'],
+        ['intelligence', 'feedback'],
+        ['payouts', 'feedback'],
+        ['feedback', 'submit']
+      ];
+
+      const getCenter = (el, containerRect) => {
+        const rect = el.getBoundingClientRect();
+        return {
+          x: rect.left - containerRect.left + rect.width / 2,
+          y: rect.top - containerRect.top + rect.height / 2
+        };
+      };
+
+      const buildPath = (from, to) => {
+        const curve = Math.min(160, Math.max(60, Math.abs(to.y - from.y) * 0.4));
+        const direction = to.y >= from.y ? 1 : -1;
+        const controlY1 = from.y + curve * direction;
+        const controlY2 = to.y - curve * direction;
+        return `M ${from.x} ${from.y} C ${from.x} ${controlY1}, ${to.x} ${controlY2}, ${to.x} ${to.y}`;
+      };
+
+      const drawFlowLines = () => {
+        if (!flowSvg) return;
+        const canvasRect = flowCanvas.getBoundingClientRect();
+        if (!canvasRect.width || !canvasRect.height) return;
+
+        flowSvg.setAttribute('viewBox', `0 0 ${canvasRect.width} ${canvasRect.height}`);
+        flowSvg.innerHTML = `
+          <defs>
+            <linearGradient id="flow-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#00D4AA" stop-opacity="0.9"/>
+              <stop offset="50%" stop-color="#0099FF" stop-opacity="0.9"/>
+              <stop offset="100%" stop-color="#A78BFA" stop-opacity="0.9"/>
+            </linearGradient>
+          </defs>
+        `;
+
+        flowConnections.forEach((connection, index) => {
+          const fromEl = nodeMap[connection[0]];
+          const toEl = nodeMap[connection[1]];
+          if (!fromEl || !toEl) return;
+
+          const start = getCenter(fromEl, canvasRect);
+          const end = getCenter(toEl, canvasRect);
+          const pathData = buildPath(start, end);
+
+          const basePath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+          basePath.setAttribute('d', pathData);
+          basePath.setAttribute('class', 'flow-path');
+          flowSvg.appendChild(basePath);
+
+          const pulsePath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+          pulsePath.setAttribute('d', pathData);
+          pulsePath.setAttribute('class', 'flow-path flow-path-pulse');
+          pulsePath.style.animationDelay = `${index * 0.45}s`;
+          flowSvg.appendChild(pulsePath);
+        });
+      };
+
+      let resizeTimer;
+      const scheduleDraw = () => {
+        window.requestAnimationFrame(drawFlowLines);
+      };
+
+      scheduleDraw();
+      window.addEventListener('resize', () => {
+        window.clearTimeout(resizeTimer);
+        resizeTimer = window.setTimeout(scheduleDraw, 120);
+      });
+
+      if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(scheduleDraw);
+      } else {
+        window.addEventListener('load', scheduleDraw);
+      }
+
+      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+      if (!prefersReducedMotion.matches) {
+        const flowSequence = [
+          ['submit'],
+          ['api'],
+          ['routing'],
+          ['mesh', 'providers', 'human'],
+          ['telemetry'],
+          ['schema'],
+          ['intelligence'],
+          ['launchpad'],
+          ['payouts'],
+          ['feedback']
+        ];
+        let flowIndex = 0;
+        setInterval(() => {
+          flowNodes.forEach(node => node.classList.remove('is-active'));
+          flowSequence[flowIndex].forEach(id => {
+            if (nodeMap[id]) {
+              nodeMap[id].classList.add('is-active');
+            }
+          });
+          flowIndex = (flowIndex + 1) % flowSequence.length;
+        }, 1700);
+      } else if (nodeMap['submit']) {
+        nodeMap['submit'].classList.add('is-active');
+      }
+    }
   </script>
   <script type="module">
     // Import the functions you need from the SDKs you need
